@@ -63,7 +63,7 @@ module.exports = {
               });
           },
           function (agent, done) {
-            console.log(agent);
+          
             modelDemande
               .findOne({ idDemande })
               .then((response) => {
@@ -125,6 +125,8 @@ module.exports = {
     try {
       const { id, valide } = req.params;
       let value = valide === "1" ? true : false
+
+
 
       modelDemande
         .aggregate([
@@ -191,6 +193,31 @@ module.exports = {
           },
           { $unwind: "$agent" },
           { $unwind: "$zone" },
+        ])
+        .then((response) => {
+          return res.status(200).json(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  ToutesDemandeAgent: (req, res) => {
+    try {
+      const { id } = req.params;
+      modelDemande
+        .aggregate([
+          { $match: { codeAgent: id } },
+          {
+            $lookup: {
+              from: "reponses",
+              localField: "idDemande",
+              foreignField: "idDemande",
+              as: "reponse",
+            },
+          },
         ])
         .then((response) => {
           return res.status(200).json(response);

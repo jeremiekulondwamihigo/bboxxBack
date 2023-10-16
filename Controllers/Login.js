@@ -6,10 +6,8 @@ exports.login = async (req, res, next) => {
   if (!username || !password) {
     return res.status(200).json("Veuillez renseigner les champs");
   }
-
   try {
     //const user = await Model_User.aggregate([ look])
-
     const user = await ModelAgent.findOne({
       codeAgent: username,
    
@@ -60,6 +58,6 @@ exports.readUser = (req, res) => {
 };
 
 const sendToken = (user, statusCode, res) => {
-  const token = user.getSignedToken();
-  return res.status(statusCode).json(token);
+  
+  return res.status(statusCode).json(user);
 };

@@ -4,7 +4,7 @@ const { Zone, ReadZone, AffecterZone } = require("../Controllers/Zone");
 const { protect } = require("../MiddleWare/protect");
 const { AddAgent, ReadAgent } = require("../Controllers/Agent");
 const { login, readUser } = require("../Controllers/Login");
-const { demande, DemandeAttente, ToutesDemande } = require("../Controllers/Demande");
+const { demande, DemandeAttente, ToutesDemande, ToutesDemandeAgent } = require("../Controllers/Demande");
 const { Parametre, ReadParametre } = require("../Controllers/Parametre");
 
 const multer = require('multer');
@@ -33,20 +33,26 @@ var upload = multer({ storage: storage })
 router.get("/zone", ReadZone);
 router.get("/agent", ReadAgent);
 router.get("/user", readUser);
-router.get("/readDemande/:id/:valide", DemandeAttente);
+
 router.get("/parametreRead", ReadParametre)
 router.get("/touteDemande/:id", ToutesDemande)
 //Delete
 
 //Create
-router.post("/login", login);
+
 router.post("/paramatre", Parametre);
 router.post("/postzone", Zone);
 router.post("/postAgent", AddAgent);
-router.post("/demande", upload.single("file"), demande);
 router.post("/reponsedemande", reponse)
-
 //Update
 router.put("/zone", AffecterZone)
+
+
+
+//Mobiles
+router.get("/demandeReponse/:id",ToutesDemandeAgent)
+router.get("/readDemande/:id/:valide", DemandeAttente);
+router.post("/demande", upload.single("file"), demande);
+router.post("/login", login);
 
 module.exports = router;

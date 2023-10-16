@@ -59,6 +59,7 @@ module.exports = {
               }
             })
             .catch(function (err) {
+              console.log(err)
               return res.status(200).json("Erreur");
             });
         },
