@@ -124,15 +124,11 @@ module.exports = {
   DemandeAttente: (req, res) => {
     try {
       const { id, valide } = req.params;
-
-      const recherche =
-        id === "tous"
-          ? { valide: Boolean(valide) }
-          : { codeAgent: id, valide: Boolean(valide) };
+      let value = valide === "1" ? true : false
 
       modelDemande
         .aggregate([
-          { $match: recherche },
+          { $match: { codeAgent: id, valide : value } },
           {
             $lookup: {
               from: "agents",
@@ -141,7 +137,6 @@ module.exports = {
               as: "agent",
             },
           },
-
           {
             $lookup: {
               from: "zones",
@@ -150,8 +145,8 @@ module.exports = {
               as: "zone",
             },
           },
-          { $unwind: "$agent" },
-          { $unwind: "$zone" },
+           { $unwind: "$agent" },
+           { $unwind: "$zone" },
         ])
         .then((response) => {
           return res.status(200).json(response);

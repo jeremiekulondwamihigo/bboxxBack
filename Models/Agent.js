@@ -5,11 +5,12 @@ const UserSchema = new mongoose.Schema({
     nom : {type:String, required:true,},
     codeAgent : {type:String, required:true, unique:true, trim:true},
     codeZone : {type:String, required:true},
-    fonction : {type:String, required:true, enum:["admin", "tech","agent"]},
+    fonction : {type:String, required:true, enum:["admin", "co", "tech","agent"]},
     password : {type:String, required:true, default:1234},
     shop : {type:String, required:false},
     telephone : {type:String, required:false},
-    active : {type:Boolean, required:true, default:true}
+    active : {type:Boolean, required:true, default:true},
+    zones : {type:Array, required:false}
 })
 UserSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {

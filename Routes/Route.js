@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Zone, ReadZone } = require("../Controllers/Zone");
+const { Zone, ReadZone, AffecterZone } = require("../Controllers/Zone");
 const { protect } = require("../MiddleWare/protect");
 const { AddAgent, ReadAgent } = require("../Controllers/Agent");
 const { login, readUser } = require("../Controllers/Login");
@@ -35,7 +35,6 @@ router.get("/agent", ReadAgent);
 router.get("/user", readUser);
 router.get("/readDemande/:id/:valide", DemandeAttente);
 router.get("/parametreRead", ReadParametre)
-//Update
 router.get("/touteDemande/:id", ToutesDemande)
 //Delete
 
@@ -46,5 +45,8 @@ router.post("/postzone", Zone);
 router.post("/postAgent", AddAgent);
 router.post("/demande", upload.single("file"), demande);
 router.post("/reponsedemande", reponse)
+
+//Update
+router.put("/zone", AffecterZone)
 
 module.exports = router;

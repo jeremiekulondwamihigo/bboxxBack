@@ -3,8 +3,6 @@ const asyncLab = require("async");
 const ModelDemande = require("../Models/Demande");
 const { isEmpty } = require("../Static/Static_Function");
 
-
-
 module.exports = {
   reponse: (req, res) => {
     try {
@@ -17,14 +15,13 @@ module.exports = {
         consExpDays,
         text,
       } = req.body;
-      console.log(req.body);
+      console.log(req.body)
       if (
         isEmpty(idDemande) ||
         isEmpty(codeClient) ||
         isEmpty(clientStatut) ||
         isEmpty(PayementStatut) ||
-        isEmpty(consExpDays) ||
-        isEmpty(text)
+        isEmpty(consExpDays)
       ) {
         return res.status(200).json("Veuillez renseigner les champs");
       }
@@ -32,6 +29,7 @@ module.exports = {
         function (done) {
           ModelDemande.findOne({ idDemande })
             .then((response) => {
+              
               if (response) {
                 done(null, response);
               } else {
@@ -39,6 +37,7 @@ module.exports = {
               }
             })
             .catch(function (err) {
+              console.log(err)
               return res.status(200).json("Erreur");
             });
         },
@@ -51,7 +50,6 @@ module.exports = {
             PayementStatut,
             consExpDays,
             text,
-            dateSave: new Date(),
           })
             .then((response) => {
               if (response) {
@@ -61,7 +59,6 @@ module.exports = {
               }
             })
             .catch(function (err) {
-            
               return res.status(200).json("Erreur");
             });
         },
