@@ -126,8 +126,6 @@ module.exports = {
       const { id, valide } = req.params;
       let value = valide === "1" ? true : false
 
-
-
       modelDemande
         .aggregate([
           { $match: { codeAgent: id, valide : value } },
@@ -163,9 +161,10 @@ module.exports = {
   ToutesDemande: (req, res) => {
     try {
       const { id } = req.params;
+      const valide = id==='1' ? true : false
       modelDemande
         .aggregate([
-          { $match: { codeAgent: id } },
+          { $match: { valide } },
           {
             $lookup: {
               from: "agents",

@@ -1,7 +1,6 @@
 const ModelReponse = require("../Models/Reponse");
 const asyncLab = require("async");
 const ModelDemande = require("../Models/Demande");
-const { isEmpty } = require("../Static/Static_Function");
 
 module.exports = {
   reponse: (req, res) => {
@@ -14,22 +13,27 @@ module.exports = {
         PayementStatut,
         consExpDays,
         text,
+        message,
+        jOrH,
       } = req.body;
-      console.log(req.body)
+
       if (
-        isEmpty(idDemande) ||
-        isEmpty(codeClient) ||
-        isEmpty(clientStatut) ||
-        isEmpty(PayementStatut) ||
-        isEmpty(consExpDays)
+        (text === "demande" &&
+          (!idDemande ||
+            !codeClient ||
+            !clientStatut ||
+            !PayementStatut ||
+            !consExpDays ||
+            !jOrH)) ||
+        (text === "texte" && !message)
       ) {
         return res.status(200).json("Veuillez renseigner les champs");
       }
+
       asyncLab.waterfall([
         function (done) {
           ModelDemande.findOne({ idDemande })
             .then((response) => {
-              
               if (response) {
                 done(null, response);
               } else {
@@ -37,7 +41,7 @@ module.exports = {
               }
             })
             .catch(function (err) {
-              console.log(err)
+              console.log(err);
               return res.status(200).json("Erreur");
             });
         },
@@ -49,6 +53,7 @@ module.exports = {
             clientStatut,
             PayementStatut,
             consExpDays,
+            jOrH,
             text,
           })
             .then((response) => {
@@ -59,7 +64,7 @@ module.exports = {
               }
             })
             .catch(function (err) {
-              console.log(err)
+              console.log(err);
               return res.status(200).json("Erreur");
             });
         },

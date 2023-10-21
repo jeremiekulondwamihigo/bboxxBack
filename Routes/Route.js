@@ -47,12 +47,14 @@ router.post("/reponsedemande", reponse)
 //Update
 router.put("/zone", AffecterZone)
 
-
-
 //Mobiles
 router.get("/demandeReponse/:id",ToutesDemandeAgent)
 router.get("/readDemande/:id/:valide", DemandeAttente);
 router.post("/demande", upload.single("file"), demande);
+
+
+router.post("/demandeImage", upload.single("file"));
+
 router.post("/login", login);
 
 module.exports = router;
