@@ -10,7 +10,11 @@ const schema = new mongoose.Schema(
     consExpDays: { type: Number, required: false },
     idDemande: { type: String, required: true, unique: true },
     text: { type: String, required: false, enum: ["demande", "texte"] },
-    jOrH : {type:String, required:false}
+    jOrH : {type:String, required:false},
+    dateSave : {type:Date, required:true},
+    codeAgent : {type:String, required:true},
+    nomClient : {type:String, required:true},
+    action : {type:String, required:false}
   },
   { timestamps: true }
 );

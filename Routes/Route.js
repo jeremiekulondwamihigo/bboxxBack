@@ -2,13 +2,15 @@ const express = require("express");
 const router = express.Router();
 const { Zone, ReadZone, AffecterZone } = require("../Controllers/Zone");
 const { protect } = require("../MiddleWare/protect");
-const { AddAgent, ReadAgent } = require("../Controllers/Agent");
-const { login, readUser } = require("../Controllers/Login");
+const { AddAgent, ReadAgent, BloquerAgent } = require("../Controllers/Agent");
+const { login, readUser, resetPassword } = require("../Controllers/Login");
 const { demande, DemandeAttente, ToutesDemande, ToutesDemandeAgent } = require("../Controllers/Demande");
 const { Parametre, ReadParametre } = require("../Controllers/Parametre");
 
 const multer = require('multer');
-const { reponse } = require("../Controllers/Reponse");
+const { reponse, OneReponse, updateReponse } = require("../Controllers/Reponse");
+const {Rapport} = require("../Controllers/Rapport");
+const { Reclamation } = require("../Controllers/Reclamation");
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -36,16 +38,21 @@ router.get("/user", readUser);
 
 router.get("/parametreRead", ReadParametre)
 router.get("/touteDemande/:id", ToutesDemande)
-//Delete
-
+//Rapport visite ménage
+router.post("/rapport", Rapport)
+router.get("/oneReponse/:id", OneReponse)
 //Create
 
 router.post("/paramatre", Parametre);
 router.post("/postzone", Zone);
 router.post("/postAgent", AddAgent);
 router.post("/reponsedemande", reponse)
+router.post("/reclamation", Reclamation)
 //Update
 router.put("/zone", AffecterZone)
+router.put("/reponse", updateReponse)
+router.put("/bloquer", BloquerAgent)
+router.put("/reset", resetPassword)
 
 //Mobiles
 router.get("/demandeReponse/:id",ToutesDemandeAgent)

@@ -48,7 +48,22 @@ module.exports = {
   ReadZone: (req, res) => {
     try {
       modelZone
-        .find({})
+        .aggregate([
+          {
+            $lookup: {
+              from: "agents",
+              pipeline: [{ $match: { fonction: "tech" } }],
+              as: "techListe",
+            },
+          },
+          {
+            $lookup: {
+              from: "agents",
+              pipeline: [{ $match: { fonction: "agent" } }],
+              as: "agentListe",
+            },
+          },
+        ])
         .then((response) => {
           return res.status(200).json(response.reverse());
         })
@@ -111,7 +126,7 @@ module.exports = {
             })
             .catch(function (err) {
               return res.status(400).json("Erreur");
-            });;
+            });
         },
       ]);
     } catch (error) {

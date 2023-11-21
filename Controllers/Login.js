@@ -1,26 +1,29 @@
+const { ObjectId } = require("mongodb");
 const ModelAgent = require("../Models/Agent");
 const jwt = require("jsonwebtoken");
-exports.login = async (req, res, next) => {
-  const { username, password } = req.body;
+const asyncLab = require("async");
+const { response } = require("express");
 
+exports.login = async (req, res) => {
+  const { username, password } = req.body;
   if (!username || !password) {
-    return res.status(200).json("Veuillez renseigner les champs");
+    return res.status(201).json("Veuillez renseigner les champs");
   }
   try {
     //const user = await Model_User.aggregate([ look])
     const user = await ModelAgent.findOne({
       codeAgent: username,
-   
+      active: true,
     }).select("+password");
 
     if (!user) {
-      return res.status(200).json("Identification incorrecte");
+      return res.status(201).json("Accès non autorisée");
     }
 
     const isMatch = await user.matchPasswords(password);
 
     if (!isMatch) {
-      return res.status(200).json("Identification incorrecte");
+      return res.status(201).json("Accès non autorisée");
     }
 
     sendToken(user, 200, res);
@@ -43,12 +46,15 @@ exports.readUser = (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    ModelAgent.findById(decoded.id, { password: 0 })
+    ModelAgent.findOne(
+      { _id: new ObjectId(decoded.id), active: true },
+      { password: 0 }
+    )
       .then((response) => {
         if (response) {
           return res.status(200).json(response);
         } else {
-          return res.status(200).json(false);
+          return res.status(201).json("Accès non autorisée");
         }
       })
       .catch(function (err) {
@@ -56,8 +62,65 @@ exports.readUser = (req, res) => {
       });
   } catch (error) {}
 };
+exports.resetPassword = (req, res) => {
+  try {
+    const { id } = req.body;
+    asyncLab.waterfall(
+      [
+        function (done) {
+          ModelAgent.findById(id).then((response) => {
+            if (response) {
+              done(null, response);
+            } else {
+              return res.status(201).json("Agent introuvable");
+            }
+          });
+        },
+        function (agent, done) {
+          ModelAgent.findByIdAndDelete(agent._id).then((repose) => {
+            if (repose) {
+              done(null, agent);
+            }
+          });
+        },
+        function (agent, done) {
+          const {
+            nom,
+            codeAgent,
+            codeZone,
+            fonction,
+            shop,
+            telephone,
+            active,
+            zones,
+          } = agent;
+          ModelAgent.create({
+            nom,
+            codeAgent,
+            codeZone,
+            fonction,
+            password:"1234",
+            shop,
+            telephone,
+            active,
+            zones,
+            id: new Date(),
+          }).then((response) => {
+            done(response);
+          });
+        },
+      ],
+      function (response) {
+        if (response) {
+          return res.status(200).json("Opération effectuée");
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const sendToken = (user, statusCode, res) => {
-  
   return res.status(statusCode).json(user);
 };

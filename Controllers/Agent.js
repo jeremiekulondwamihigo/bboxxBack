@@ -42,6 +42,7 @@ module.exports = {
                 codeZone: idZone,
                 fonction,
                 telephone,
+                id: new Date(),
               })
               .then((response) => {
                 if (response) {
@@ -74,4 +75,22 @@ module.exports = {
       console.log(error);
     }
   },
+  BloquerAgent: (req, res) => {
+    try {
+      const { id, value } = req.body;
+      modelAgent
+        .findByIdAndUpdate(id, { active: value }, { new: true })
+        .then((result) => {
+          if (result) {
+            return res.status(200).json(result);
+          }
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  
 };

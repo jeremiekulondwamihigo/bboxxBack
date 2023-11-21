@@ -4,7 +4,7 @@ module.exports = {
   Parametre: (req, res) => {
     try {
       const { data } = req.body;
-      console.log(data)
+      console.log(req.body)
       modelParametre
         .findOne({})
         .then((response) => {

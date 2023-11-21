@@ -1,9 +1,10 @@
 const mongoose = require("mongoose")
 
 const schema = new mongoose.Schema({
-    customer : {type:String, required:true},
+    customer : {type:String, required:false},
     customer_cu : {type:String, required:false, default :""},
-    id : {type:String, required:true}
+    id : {type:String, required:false},
+    nomClient : {type:String, required:false}
 })
 const model = mongoose.model("Parametre", schema)
 module.exports = model
