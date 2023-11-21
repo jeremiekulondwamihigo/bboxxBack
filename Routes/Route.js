@@ -35,7 +35,7 @@ var upload = multer({ storage: storage })
 router.get("/zone", ReadZone);
 router.get("/agent", ReadAgent);
 router.get("/user", readUser);
-router.get("/reclamation/:idDemande", ReadReclamation)
+router.get("/reclamation/:id", ReadReclamation)
 
 router.get("/parametreRead", ReadParametre)
 router.get("/touteDemande/:id", ToutesDemande)

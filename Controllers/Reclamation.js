@@ -68,12 +68,12 @@ module.exports = {
   },
   ReadReclamation: (req, res) => {
     try {
-      const { idDemande } = req.params;
+      const { id } = req.params;
       asyncLab.waterfall(
         [
           function (done) {
             modelDemande
-              .findById(idDemande)
+              .findById(id)
               .then((response) => {
                 if (response) {
                   done(null, response);
