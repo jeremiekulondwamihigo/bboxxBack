@@ -10,7 +10,7 @@ const { Parametre, ReadParametre } = require("../Controllers/Parametre");
 const multer = require('multer');
 const { reponse, OneReponse, updateReponse } = require("../Controllers/Reponse");
 const {Rapport} = require("../Controllers/Rapport");
-const { Reclamation } = require("../Controllers/Reclamation");
+const { Reclamation, ReadReclamation } = require("../Controllers/Reclamation");
 
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -35,6 +35,7 @@ var upload = multer({ storage: storage })
 router.get("/zone", ReadZone);
 router.get("/agent", ReadAgent);
 router.get("/user", readUser);
+router.get("/reclamation/:idDemande", ReadReclamation)
 
 router.get("/parametreRead", ReadParametre)
 router.get("/touteDemande/:id", ToutesDemande)
