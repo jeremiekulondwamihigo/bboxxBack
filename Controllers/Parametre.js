@@ -1,10 +1,11 @@
 const modelParametre = require("../Models/Parametre");
+const modelPeriode = require("../Models/Periode");
+const asyncLab = require("async");
 
 module.exports = {
   Parametre: (req, res) => {
     try {
       const { data } = req.body;
-      console.log(req.body)
       modelParametre
         .findOne({})
         .then((response) => {
@@ -34,13 +35,26 @@ module.exports = {
       console.log(error);
     }
   },
-  ReadParametre : (req, res)=>{
+  ReadParametre: (req, res) => {
     try {
-        modelParametre.find({}).then(response=>{
-            return res.status(200).json(response)
-        }).catch(function(err){console.log(err)})
+      modelParametre
+        .find({})
+        .then((response) => {
+          return res.status(200).json(response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
     } catch (error) {
-         console.log(error)
+      console.log(error);
     }
-  }
+  },
+  PeriodeDemande: (req, res, next) => {
+    next();
+    if (new Date().getDate() <= 23) {
+      const toDay = new Date();
+      const periode = `${toDay.getMonth() + 1}-${toDay.getFullYear()}`;
+      modelPeriode.updateOne({ $set: { periode } }).then((result) => {});
+    }
+  },
 };

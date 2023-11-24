@@ -6,7 +6,9 @@ module.exports = {
     try {
       const { debut, fin } = req.body;
       if (!debut || !fin) {
-        return res.status(200).json({error : true, message :"Veuillez renseigner les dates"});
+        return res
+          .status(200)
+          .json({ error: true, message: "Veuillez renseigner les dates" });
       }
       let matches = {
         $match: {
@@ -43,28 +45,35 @@ module.exports = {
           as: "demandeur",
         },
       };
+
       let project = {
-        $project : {
-            codeClient:1,
-            codeCu:1,
-            clientStatut:1,
-            PayementStatut:1,
-            consExpDays:1,
-            jOrH:1,
-            "demandeur.nom":1,
-            'demandeur.codeAgent':1,
-            "agent.nom":1,
-            "demande.typeImage":1,
-            'demande.createAt':1,
-            createdAt:1,
-            "demande.coordonnes": 1,
-            'demande.statut':1,
-            'demande.adresse':1,
-            'demande.createdAt':1,
-            'demande.raison':1,
-            'nomClient':1
-        }
-      }
+        $project: {
+          codeClient: 1,
+          codeCu: 1,
+          clientStatut: 1,
+          PayementStatut: 1,
+          consExpDays: 1,
+          jOrH: 1,
+          "demandeur.nom": 1,
+          "demandeur.codeAgent": 1,
+          "demandeur.fonction": 1,
+          "agent.nom": 1,
+          "demande.typeImage": 1,
+          "demande.createAt": 1,
+          createdAt: 1,
+          "demande.coordonnes": 1,
+          "demande.statut": 1,
+          "demande.adresse": 1,
+          "demande.createdAt": 1,
+          "demande.raison": 1,
+          nomClient: 1,
+          region: 1,
+          shop: 1,
+        },
+      };
+      let sort = {
+        $sort: { createdAt: -1 },
+      };
       asyncLab.waterfall([
         function (done) {
           ModelReponse.aggregate([
@@ -74,8 +83,11 @@ module.exports = {
             lookDemandeur,
             lookAgent,
             unwindDemandeur,
-            unwindagent,project
+            unwindagent,
+            project,
+            sort,
           ]).then((response) => {
+            console.log(response);
             return res.status(200).json(response.reverse());
           });
         },

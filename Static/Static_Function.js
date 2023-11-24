@@ -29,5 +29,8 @@ module.exports = {
     }
     return resultat;
   },
-
+  dateActuelle: (data) => {
+    const jour = new Date(data);
+    return `${jour.getDate()}/${jour.getMonth() + 1}/${jour.getFullYear()}`;
+  },
 };

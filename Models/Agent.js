@@ -5,7 +5,7 @@ const UserSchema = new mongoose.Schema(
   {
     nom: { type: String, required: true },
     codeAgent: { type: String, required: true, unique: true, trim: true },
-    codeZone: { type: String, required: true },
+    codeZone: { type: String, required: false },
     fonction: {
       type: String,
       required: true,

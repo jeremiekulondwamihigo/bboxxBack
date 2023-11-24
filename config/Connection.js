@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 
 const connectDB = async () => {
-  await mongoose.connect(process.env.MONGO_LOCAL, {
+  await mongoose.connect("mongodb://localhost:27017/Bboxx", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     // useFindAndModify: false,

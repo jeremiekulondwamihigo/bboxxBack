@@ -5,7 +5,8 @@ const asyncLab = require("async");
 const { response } = require("express");
 
 exports.login = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, identifiant } = req.body;
+  console.log(req.body);
   if (!username || !password) {
     return res.status(201).json("Veuillez renseigner les champs");
   }
@@ -23,6 +24,9 @@ exports.login = async (req, res) => {
     const isMatch = await user.matchPasswords(password);
 
     if (!isMatch) {
+      return res.status(201).json("Accès non autorisée");
+    }
+    if (user.fonction !== "admin" && !identifiant) {
       return res.status(201).json("Accès non autorisée");
     }
 
@@ -99,7 +103,7 @@ exports.resetPassword = (req, res) => {
             codeAgent,
             codeZone,
             fonction,
-            password:"1234",
+            password: "1234",
             shop,
             telephone,
             active,
