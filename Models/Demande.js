@@ -5,14 +5,17 @@ const coordonne = new mongoose.Schema({
   longitude: { type: String, required: false },
   altitude: { type: String, required: false },
 });
-const conversatn = new mongoose.Schema({
-  sender : {type:String, required:true},
-  message : {type:String, required:true},
-}, {timestamps : true})
+const conversatn = new mongoose.Schema(
+  {
+    sender: { type: String, required: true },
+    message: { type: String, required: true },
+  },
+  { timestamps: true }
+);
 const schema = new mongoose.Schema(
   {
     valide: { type: Boolean, required: true, default: false },
-    idDemande: { type: String, required: true, },
+    idDemande: { type: String, required: true },
     codeAgent: {
       type: String,
       required: [true, "Le code agent est obligatoire"],
@@ -33,9 +36,13 @@ const schema = new mongoose.Schema(
     adresse: { type: String, required: [true, "L'adresse du client svp !"] },
     codeclient: { type: String, required: false },
     file: { type: String, required: [true, "Envoies la capture svp !"] },
-    concerne : {type:String, required:false},
-    conversation : {type:[conversatn], required:false}
-   
+    concerne: { type: String, required: false },
+    province: { type: String, required: true },
+    country: { type: String, required: true }, 
+    sector: { type: String, required: true },
+    cell: { type: String, required: true }, 
+    reference: { type: String, required: true },
+    sat: { type: String, required: true }, 
   },
   {
     timestamps: true,
