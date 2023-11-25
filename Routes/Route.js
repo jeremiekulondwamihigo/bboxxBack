@@ -92,6 +92,6 @@ router.post("/login", login);
 
 //Lien après presentation du systeme
 router.post("/demandeAll", lectureDemandeBd);
-router.get("/statistique", readPeriodeGroup)
+router.get("/paquet", readPeriodeGroup)
 
 module.exports = router;
