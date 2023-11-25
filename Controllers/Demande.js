@@ -2,6 +2,7 @@ const modelDemande = require('../Models/Demande')
 const modelAgent = require('../Models/Agent')
 const asyncLab = require('async')
 const { generateNumber } = require('../Static/Static_Function')
+const ModelPeriode = require("../Models/Periode")
 
 module.exports = {
   demande: (req, res) => {
@@ -52,7 +53,6 @@ module.exports = {
             modelAgent
               .findOne({ codeAgent, active: true })
               .then((agentFound) => {
-                console.log(agentFound)
                 if (agentFound) {
                   done(null, agentFound)
                 } else {
@@ -60,9 +60,11 @@ module.exports = {
                 }
               })
               .catch(function (err) {
+                console.log(err)
                 return res.status(400).json('Erreur')
               })
           },
+         
           function (agent, done) {
             modelDemande
               .findOne({ idDemande })
@@ -78,8 +80,22 @@ module.exports = {
                 return res.status(200).json('Erreur')
               })
           },
+          function(agent, done){
+            ModelPeriode.findOne({})
+              .limit(1)
+              .then((response) => {
+                if (response) {
+                  done(null, agent, response);
+                } else {
+                 done("Aucune période en cours");
+                }
+              })
+              .catch(function (err) {
+                console.log(err);
+              });
+          },
 
-          function (agent, done) {
+          function (agent, periode, done) {
             modelDemande
               .create({
                 codeAgent: agent.codeAgent,
@@ -90,6 +106,7 @@ module.exports = {
                 raison,
                 codeclient,
                 file,
+                lot : periode.periode,
                 idDemande,
                 province,
                 country,
@@ -109,6 +126,7 @@ module.exports = {
                 }
               })
               .catch(function (err) {
+                console.log(err)
                 if (err.message) {
                   return res.status(400).json(err.message.split(':')[2])
                 } else {
@@ -122,6 +140,7 @@ module.exports = {
         },
       )
     } catch (error) {
+      console.log(error)
       return res.status(200).json('Erreur')
     }
   },
@@ -264,19 +283,14 @@ module.exports = {
   },
   lectureDemandeBd: (req, res) => {
     try {
-      let { id } = req.params
+      const {body} = req
+      console.log(body)
       let match = {
-        $match: {
-          codeAgent: id,
-        },
+        $match: body,
       }
-      let match1 = {
-        $match: {},
-      }
-      let recherche = id === 'tous' ? match1 : match
       modelDemande
         .aggregate([
-          recherche,
+          match,
           {
             $lookup: {
               from: 'reponses',
@@ -293,6 +307,17 @@ module.exports = {
               as: 'conversation',
             },
           },
+          {
+            $lookup: {
+              from: 'agents',
+              localField: 'codeAgent',
+              foreignField: 'codeAgent',
+              as: 'agent',
+            },
+          },
+          {
+            $unwind : "$agent"
+          }
         ])
         .then((response) => {
           if (response) {

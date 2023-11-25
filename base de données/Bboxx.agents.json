@@ -1,0 +1,23 @@
+[{
+  "_id": {
+    "$oid": "655f07ddd26c8af44d031e56"
+  },
+  "nom": "ZIHINDULA",
+  "codeAgent": "BXCR192",
+  "codeZone": "9L3W",
+  "fonction": "tech",
+  "password": "$2b$10$0E5WjweWONwo.bZb8tDpr.nr5eX4WMxObjqzrRylby/TcmuUgPuea",
+  "telephone": "0983743",
+  "active": true,
+  "zones": [],
+  "id": {
+    "$date": "2023-11-23T08:05:49.130Z"
+  },
+  "createdAt": {
+    "$date": "2023-11-23T08:05:49.132Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-23T08:05:49.132Z"
+  },
+  "__v": 0
+}]

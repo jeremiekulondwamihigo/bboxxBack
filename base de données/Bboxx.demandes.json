@@ -1,0 +1,99 @@
+[{
+  "_id": {
+    "$oid": "6561f8870951193fc3bcd35c"
+  },
+  "valide": true,
+  "idDemande": "231016807",
+  "codeAgent": "BXCR192",
+  "codeZone": "9L3W",
+  "typeImage": "photo",
+  "coordonnes": {
+    "latitude": "-1.6777216",
+    "longitude": "29.2225024",
+    "_id": {
+      "$oid": "6561f8870951193fc3bcd35d"
+    }
+  },
+  "statut": "allumer",
+  "file": "1700919431082.avif",
+  "province": "Nord-Kivu",
+  "country": "Goma",
+  "sector": "Mugunga",
+  "cell": "Makiso",
+  "reference": "vers l'antenne Airtel",
+  "sat": "SAT Goma_Mugunga",
+  "lot": "11-2023",
+  "createdAt": {
+    "$date": "2023-11-25T13:37:11.115Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-25T13:43:42.365Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65620e5eecc0bd1e7a93abd2"
+  },
+  "valide": false,
+  "idDemande": "231031867",
+  "codeAgent": "BXCR192",
+  "codeZone": "SJYX",
+  "typeImage": "photo",
+  "coordonnes": {
+    "latitude": "-1.6777216",
+    "longitude": "29.2225024",
+    "_id": {
+      "$oid": "65620e5eecc0bd1e7a93abd3"
+    }
+  },
+  "statut": "allumer",
+  "file": "1700925022417.avif",
+  "province": "Nord-Kivu",
+  "country": "Goma",
+  "sector": "Mugunga",
+  "cell": "Makiso",
+  "reference": "vers l'antenne Airtel",
+  "sat": "SAT Goma_Mugunga",
+  "lot": "11-2023",
+  "createdAt": {
+    "$date": "2023-11-25T15:10:22.645Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-25T15:10:22.645Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "65621558ecc0bd1e7a93af20"
+  },
+  "valide": false,
+  "idDemande": "231037113",
+  "codeAgent": "BXCR192",
+  "codeZone": "SJYX",
+  "typeImage": "photo",
+  "coordonnes": {
+    "latitude": "-1.6777216",
+    "longitude": "29.2225024",
+    "_id": {
+      "$oid": "65621558ecc0bd1e7a93af21"
+    }
+  },
+  "statut": "allumer",
+  "file": "1700926808434.jpg",
+  "province": "Nord-Kivu",
+  "country": "Goma",
+  "sector": "Mugunga",
+  "cell": "Makiso",
+  "reference": "vers l'antenne Airtel",
+  "sat": "SAT Goma_Mugunga",
+  "lot": "11-2023",
+  "createdAt": {
+    "$date": "2023-11-25T15:40:08.457Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-25T15:40:08.457Z"
+  },
+  "__v": 0
+}]

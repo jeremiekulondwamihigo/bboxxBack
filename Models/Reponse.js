@@ -9,8 +9,6 @@ const schema = new mongoose.Schema(
     PayementStatut: { type: String, required: false },
     consExpDays: { type: Number, required: false },
     idDemande: { type: String, required: true, unique: true },
-    text: { type: String, required: true },
-    jOrH: { type: String, required: false },
     dateSave: { type: Date, required: true },
     codeAgent: { type: String, required: true },
     nomClient: { type: String, required: true },

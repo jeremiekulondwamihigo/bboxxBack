@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "6561fa0e3e0d1e3809771dc4"
+  },
+  "codeClient": "BDRC00068543",
+  "codeCu": "MC0211-000572-V",
+  "clientStatut": "normal",
+  "PayementStatut": "default",
+  "consExpDays": 12,
+  "idDemande": "231016807",
+  "dateSave": {
+    "$date": "2023-11-25T00:00:00.000Z"
+  },
+  "codeAgent": "1010",
+  "nomClient": "Chiribagula Mugenga Innocent 1",
+  "region": "",
+  "shop": "",
+  "createdAt": {
+    "$date": "2023-11-25T13:43:42.355Z"
+  },
+  "updatedAt": {
+    "$date": "2023-11-25T13:43:42.355Z"
+  },
+  "__v": 0
+}]

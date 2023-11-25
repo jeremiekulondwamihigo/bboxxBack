@@ -91,7 +91,7 @@ router.post("/demandeImage", upload.single("file"));
 router.post("/login", login);
 
 //Lien après presentation du systeme
-router.get("/demandeAll/:id", lectureDemandeBd);
+router.post("/demandeAll", lectureDemandeBd);
 router.get("/statistique", readPeriodeGroup)
 
 module.exports = router;

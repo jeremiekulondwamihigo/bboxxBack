@@ -1,10 +1,10 @@
-const modelReponse = require('../Models/Reponse')
+const modelDemande = require('../Models/Demande')
 
 module.exports = {
   readPeriodeGroup: (req, res) => {
     try {
-      modelReponse
-        .aggregate([{ $group: { _id: '$text' } }])
+      modelDemande
+        .aggregate([{ $group: { _id: '$lot' } }])
         .then((response) => {
           res.send(response)
         })
