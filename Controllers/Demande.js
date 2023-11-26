@@ -45,7 +45,7 @@ module.exports = {
         !reference ||
         !sat
       ) {
-        return res.status(200).json('Veuillez renseigner les champs')
+        return res.status(201).json('Veuillez renseigner les champs')
       }
       asyncLab.waterfall(
         [
@@ -56,12 +56,11 @@ module.exports = {
                 if (agentFound) {
                   done(null, agentFound)
                 } else {
-                  return res.status(400).json('Agent introuvable')
+                  return res.status(201).json('Agent introuvable')
                 }
               })
               .catch(function (err) {
-                console.log(err)
-                return res.status(400).json('Erreur')
+                return res.status(201).json('Erreur')
               })
           },
          
@@ -70,14 +69,14 @@ module.exports = {
               .findOne({ idDemande })
               .then((response) => {
                 if (response) {
-                  return res.status(200).json('Veuillez relancer la demande')
+                  return res.status(201).json('Veuillez relancer la demande')
                 } else {
                   done(null, agent)
                 }
               })
               .catch(function (err) {
-                console.log(err)
-                return res.status(200).json('Erreur')
+                
+                return res.status(201).json('Erreur')
               })
           },
           function(agent, done){
@@ -87,11 +86,11 @@ module.exports = {
                 if (response) {
                   done(null, agent, response);
                 } else {
-                 done("Aucune période en cours");
+                  return res.status(201).json("Aucune période en cours");
                 }
               })
               .catch(function (err) {
-                console.log(err);
+                return res.status(201).json("Erreur");
               });
           },
 
@@ -121,16 +120,15 @@ module.exports = {
                   done(demande)
                 } else {
                   return res
-                    .status(200)
+                    .status(201)
                     .json("Erreur d'enregistrement de la demande")
                 }
               })
               .catch(function (err) {
-                console.log(err)
                 if (err.message) {
-                  return res.status(400).json(err.message.split(':')[2])
+                  return res.status(201).json(err.message.split(':')[2])
                 } else {
-                  return res.status(200).json('Erreur')
+                  return res.status(201).json('Erreur')
                 }
               })
           },
