@@ -16,6 +16,7 @@ const {
   ToutesDemandeAgent,
   updateOneDemande,
   lectureDemandeBd,
+  lectureDemandeMobile,
 } = require("../Controllers/Demande");
 const { Parametre, ReadParametre } = require("../Controllers/Parametre");
 
@@ -87,11 +88,12 @@ router.get("/readDemande/:id/:valide", DemandeAttente);
 router.post("/demande", upload.single("file"), demande);
 
 router.post("/demandeImage", upload.single("file"));
+router.post("/demandeAgentAll", lectureDemandeBd);
 
 router.post("/login", login);
 
 //Lien après presentation du systeme
-router.post("/demandeAll", lectureDemandeBd);
+router.get("/demandeAll/:lot/:codeAgent", lectureDemandeMobile);
 router.get("/paquet", readPeriodeGroup)
 
 module.exports = router;

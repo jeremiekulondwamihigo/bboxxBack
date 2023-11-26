@@ -284,9 +284,54 @@ module.exports = {
   lectureDemandeBd: (req, res) => {
     try {
       const {body} = req
-      console.log(body)
       let match = {
         $match: body,
+      }
+      modelDemande
+        .aggregate([
+          match,
+          {
+            $lookup: {
+              from: 'reponses',
+              localField: 'idDemande',
+              foreignField: 'idDemande',
+              as: 'reponse',
+            },
+          },
+          {
+            $lookup: {
+              from: 'conversations',
+              localField: 'idDemande',
+              foreignField: 'idDemande',
+              as: 'conversation',
+            },
+          },
+          {
+            $lookup: {
+              from: 'agents',
+              localField: 'codeAgent',
+              foreignField: 'codeAgent',
+              as: 'agent',
+            },
+          },
+          {
+            $unwind : "$agent"
+          }
+        ])
+        .then((response) => {
+          if (response) {
+            return res.status(200).json(response.reverse())
+          }
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  lectureDemandeMobile: (req, res) => {
+    try {
+      const {lot, codeAgent} = req.params
+      let match = {
+        $match: {lot, codeAgent},
       }
       modelDemande
         .aggregate([
