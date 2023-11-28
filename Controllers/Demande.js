@@ -313,7 +313,18 @@ module.exports = {
             },
           },
           {
+            $lookup: {
+              from: 'zones',
+              localField: 'codeZone',
+              foreignField: 'idZone',
+              as: 'zone',
+            },
+          },
+          {
             $unwind : "$agent"
+          },
+          {
+            $unwind : "$zone"
           }
         ])
         .then((response) => {

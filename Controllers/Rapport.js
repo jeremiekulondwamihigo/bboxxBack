@@ -5,6 +5,7 @@ module.exports = {
   Rapport: (req, res) => {
     try {
       const { debut, fin } = req.body;
+      console.log(req.body)
       if (!debut || !fin) {
         return res
           .status(200)
@@ -34,6 +35,7 @@ module.exports = {
           as: "demande",
         },
       };
+    
       let unwindDemande = { $unwind: "$demande" };
       let unwindDemandeur = { $unwind: "$demandeur" };
       let unwindagent = { $unwind: "$agent" };

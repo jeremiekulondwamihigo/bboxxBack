@@ -9,6 +9,7 @@ const { dateActuelle } = require("../Static/Static_Function");
 module.exports = {
   reponse: (req, res) => {
     try {
+      console.log(req.body)
       const {
         idDemande,
         codeClient,

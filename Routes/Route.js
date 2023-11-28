@@ -94,6 +94,6 @@ router.post("/login", login);
 
 //Lien après presentation du systeme
 router.get("/demandeAll/:lot/:codeAgent", lectureDemandeMobile);
-router.get("/paquet", readPeriodeGroup)
+router.get("/paquet/:codeAgent", readPeriodeGroup)
 
 module.exports = router;
