@@ -30,13 +30,20 @@ module.exports = {
 
               as: "reponse",
             },
-          },
+          }
         ])
         .then((response) => {
           if (response) {
-           res.send(response);
+            let table = []
+            for(let i=0; i<response.length; i++){
+              table.push({
+                _id : response[i]._id,
+                reponse : response[i].reponse.length,
+                demande : response[i].demande.length
+              })
+            }
+           return res.status(200).json(table)
           }
-          
         });
     } catch (error) {
       console.log(error);
