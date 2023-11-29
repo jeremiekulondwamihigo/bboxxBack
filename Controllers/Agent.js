@@ -11,7 +11,6 @@ module.exports = {
       if (isEmpty(nom) || isEmpty(codeAgent) || isEmpty(fonction)) {
         return res.status(400).json("Veuillez renseigner les champs");
       }
-
       asyncLab.waterfall(
         [
           function (done) {

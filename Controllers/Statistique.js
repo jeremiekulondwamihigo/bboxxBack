@@ -1,50 +1,62 @@
 const modelDemande = require("../Models/Demande");
+const _ = require("lodash");
+const asyncLab = require("async");
 
 module.exports = {
   readPeriodeGroup: (req, res) => {
     try {
       const { codeAgent } = req.params;
-      let lookupDemande = codeAgent === "tout" ? {
-        $lookup: {
-          from: "demandes",
-          localField:"_id",
-          foreignField:"lot",
-          as: "demande",
+      asyncLab.waterfall([
+        function (done) {
+          modelDemande
+            .aggregate([{ $group: { _id: "$lot" } }])
+            .then((response) => {
+              if (response) {
+                let table = [];
+                for (let i = 0; i < response.length; i++) {
+                  table.push(response[i]._id);
+                }
+                done(null, table);
+              }
+            });
         },
-      } : {
-        $lookup: {
-          from: "demandes",
-          pipeline: [{ $match: { codeAgent } }],
-          as: "demande",
+        function (lot, done) {
+          modelDemande
+            .aggregate([
+              {
+                $match: {
+                  codeAgent,
+                  codeAgent,
+                  lot: {
+                    $in: lot,
+                  },
+                },
+              },
+              {
+                $lookup : {
+                  from :"reponses",
+                  localField:"idDemande",
+                  foreignField:"idDemande",
+                  as :"reponse"
+                }
+              }
+            ])
+            .then((response) => {
+              done(null, lot, response);
+            });
         },
-      }
-      modelDemande
-        .aggregate([
-          { $group: { _id: "$lot" } },
-          lookupDemande,
-          {
-            $lookup: {
-              from: "reponses",
-              localField: "demande.idDemande",
-              foreignField: "idDemande",
-
-              as: "reponse",
-            },
+        function (lot, reponse, done) {
+          let table = []
+          for(let i=0; i<lot.length; i++){
+            table.push({
+              _id : lot[i],
+              demande : reponse.filter(x=>x.lot === lot[i]).length,
+              reponse : reponse.filter(x=>x.lot === lot[i] && x.reponse.length > 0).length,
+            })
           }
-        ])
-        .then((response) => {
-          if (response) {
-            let table = []
-            for(let i=0; i<response.length; i++){
-              table.push({
-                _id : response[i]._id,
-                reponse : response[i].reponse.length,
-                demande : response[i].demande.length
-              })
-            }
-           return res.status(200).json(table)
-          }
-        });
+          res.status(200).json(table);
+        },
+      ]);
     } catch (error) {
       console.log(error);
     }
