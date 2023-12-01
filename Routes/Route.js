@@ -29,7 +29,6 @@ const {
 const { Rapport } = require("../Controllers/Rapport");
 const {
   Reclamation,
-  ReadReclamation,
   ReadMessage,
   MakeFalse,
 } = require("../Controllers/Reclamation");
@@ -58,8 +57,7 @@ var upload = multer({ storage: storage });
 router.get("/zone", ReadZone);
 router.get("/agent", ReadAgent);
 router.get("/user", readUser);
-router.get("/reclamation/:id", ReadReclamation);
-router.get("/message", ReadMessage);
+router.get("/message/:id", ReadMessage);
 
 router.get("/parametreRead", ReadParametre);
 router.get("/touteDemande/:id", ToutesDemande);
