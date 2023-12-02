@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:bbox/model/demande.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/demande_controller.dart';
 import 'conversation.dart';
+import 'widget/formText.dart';
 
 class ReponseDemande extends StatefulWidget {
   const ReponseDemande(
@@ -22,6 +25,7 @@ class _ReponseDemandeState extends State<ReponseDemande> {
   bool isVisible = false;
   String id = '1010';
   late String? user;
+  TextEditingController message = TextEditingController();
 
   Future chechLogin() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
@@ -37,15 +41,75 @@ class _ReponseDemandeState extends State<ReponseDemande> {
     }
   }
 
+  Future<void> saveMessage(String id) async {
+    final url =
+        Uri.parse('http://${widget.server}:5000/bboxx/support/reclamation');
+    var response = await http.post(url,
+        body: ({
+          '_id': id,
+          'message': message.text,
+          'sender': 'agent',
+          'codeAgent': user
+        }));
+    if (response.statusCode == 200) {
+      final nom = response.body;
+      final result = jsonDecode(nom);
+      print(result);
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+        'Message envoye',
+        style: GoogleFonts.raleway(color: Colors.red),
+      )));
+      message.clear();
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     chechLogin();
   }
 
+  void showmodalBottom(
+    String id,
+  ) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Container(
+            height: 130,
+            // width: double.infinity,
+            color: Colors.white,
+            child: Column(children: [
+              TextFieldForm(text: id, controller: message),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        saveMessage(id);
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Envoyez',
+                        style: GoogleFonts.raleway(fontSize: 15),
+                      )),
+                ),
+              ),
+            ]),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -108,15 +172,9 @@ class _ReponseDemandeState extends State<ReponseDemande> {
                   .map((e) => Column(
                         children: [
                           GestureDetector(
-                            onTap: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ConversationUi(
-                                    server: widget.server,
-                                    id: e.id,
-                                    idDemande: e.idDemande,
-                                  ),
-                                )),
+                            onTap: () => showmodalBottom(
+                              e.id,
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,

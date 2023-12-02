@@ -4,6 +4,7 @@ import 'package:bbox/screen/login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'conversation.dart';
 import 'lot.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -65,7 +66,7 @@ class _MenuScreenState extends State<MenuScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
-                  'Bienvenu agent $nom',
+                  'Bienvenu $nom',
                   style: GoogleFonts.raleway(
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
@@ -91,7 +92,7 @@ class _MenuScreenState extends State<MenuScreen> {
                     screenHeight: screenHeight,
                     screenWidth: screenWidth,
                     img: 'assets/parking-lot.png',
-                    text: 'Le lot'),
+                    text: 'Paquet'),
               ),
               GestureDetector(
                 onTap: () {
@@ -115,8 +116,8 @@ class _MenuScreenState extends State<MenuScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EnvoiDemande(
-                          img: widget.img,
+                        builder: (context) => ConversationUi(
+                          id: user!,
                           server: widget.server,
                         ),
                       ));

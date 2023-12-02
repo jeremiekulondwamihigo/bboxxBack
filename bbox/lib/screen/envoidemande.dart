@@ -25,15 +25,15 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
   TextEditingController raison = TextEditingController();
   TextEditingController reference = TextEditingController();
   TextEditingController sat = TextEditingController();
+  TextEditingController quartier = TextEditingController();
+  TextEditingController commune = TextEditingController();
+  TextEditingController ville = TextEditingController();
+  TextEditingController province = TextEditingController();
   GlobalKey<FormState> formkey = GlobalKey();
   bool isVisible = false;
   // dropboxbutton
   String? valeurEtatBatterie;
   List listvalue = ['allumer', 'eteint'];
-  String? valeurQuartier;
-  String? valeurCommune;
-  String? valeurVille;
-  String? valeurProvince;
 
   //
   String url = '';
@@ -99,10 +99,10 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
           "altitude": atitude,
           "statut": 'allumer',
           "raison": raison.text,
-          "province": valeurProvince,
-          "country": valeurVille,
-          "sector": valeurQuartier,
-          "cell": valeurCommune,
+          "province": province.text,
+          "country": ville.text,
+          "sector": quartier.text,
+          "cell": commune.text,
           "reference": reference.text,
           "sat": sat.text,
           "file": await MultipartFile.fromFile(file.path, filename: names),
@@ -125,7 +125,9 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
       long = '';
       quartier.clear();
       valeurEtatBatterie = '';
-      valeurVille;
+      ville.clear();
+      province.clear();
+      commune.clear();
       _image!.delete();
     } else {
       // User canceled the picker
@@ -225,152 +227,10 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
                   ),
                 ),
                 TextFieldForm(text: 'Avenue et numero', controller: adresse),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                        height: screenHeight * 0.07,
-                        width: screenWidth / 2.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color.fromRGBO(255, 255, 255, 1)),
-                        child: DropdownButton(
-                          hint: Text(
-                            'Quartier',
-                            style: GoogleFonts.raleway(fontSize: 15),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          style: GoogleFonts.raleway(color: Colors.black54),
-                          underline: Container(),
-                          focusColor: Colors.white,
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: valeurQuartier,
-                          items: quartier
-                              .map((e) => DropdownMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              valeurQuartier = value as String?;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                        height: screenHeight * 0.07,
-                        width: screenWidth / 2.3,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color.fromRGBO(255, 255, 255, 1)),
-                        child: DropdownButton(
-                          hint: Text(
-                            'Commune',
-                            style: GoogleFonts.raleway(fontSize: 15),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          style: GoogleFonts.raleway(color: Colors.black54),
-                          underline: Container(),
-                          focusColor: Colors.white,
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: valeurCommune,
-                          items: commune
-                              .map((e) => DropdownMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              valeurCommune = value as String?;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                        height: screenHeight * 0.07,
-                        width: screenWidth / 2.2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color.fromRGBO(255, 255, 255, 1)),
-                        child: DropdownButton(
-                          hint: Text(
-                            'Ville',
-                            style: GoogleFonts.raleway(fontSize: 15),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          style: GoogleFonts.raleway(color: Colors.black54),
-                          underline: Container(),
-                          focusColor: Colors.white,
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: valeurVille,
-                          items: ville
-                              .map((e) => DropdownMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              valeurVille = value as String?;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Container(
-                        height: screenHeight * 0.07,
-                        width: screenWidth / 2.3,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: const Color.fromRGBO(255, 255, 255, 1)),
-                        child: DropdownButton(
-                          hint: Text(
-                            'Province',
-                            style: GoogleFonts.raleway(fontSize: 15),
-                          ),
-                          padding: const EdgeInsets.all(8),
-                          style: GoogleFonts.raleway(color: Colors.black54),
-                          underline: Container(),
-                          focusColor: Colors.white,
-                          dropdownColor: Colors.white,
-                          isExpanded: true,
-                          value: valeurProvince,
-                          items: province
-                              .map((e) => DropdownMenuItem(
-                                    child: Text(e),
-                                    value: e,
-                                  ))
-                              .toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              valeurProvince = value as String?;
-                            });
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                TextFieldForm(text: 'Quartier', controller: quartier),
+                TextFieldForm(text: 'Commune', controller: commune),
+                TextFieldForm(text: 'Ville', controller: ville),
+                TextFieldForm(text: 'Province', controller: province),
                 TextFieldForm(text: 'Reference', controller: reference),
                 TextFieldForm(text: 'SAT', controller: sat),
                 //
@@ -435,7 +295,7 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    '---Etat de batterie',
+                    '---Etat de C.U',
                     style: GoogleFonts.raleway(
                         color: Colors.green, fontStyle: FontStyle.italic),
                   ),
@@ -450,7 +310,7 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
                         color: const Color.fromRGBO(255, 255, 255, 1)),
                     child: DropdownButton(
                       hint: Text(
-                        'Etat Batterie',
+                        'Etat C.U',
                         style: GoogleFonts.raleway(fontSize: 15),
                       ),
                       padding: const EdgeInsets.all(8),
@@ -526,10 +386,10 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
                             _image != null &&
                             adresse.text.isNotEmpty &&
                             raison.text.isNotEmpty &&
-                            valeurProvince!.isNotEmpty &&
+                            province.text.isNotEmpty &&
                             valeurEtatBatterie!.isNotEmpty &&
-                            valeurProvince!.isNotEmpty &&
-                            valeurVille!.isNotEmpty) {
+                            ville.text.isNotEmpty &&
+                            quartier.text.isNotEmpty) {
                           uploadImage(_image!);
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
