@@ -4,9 +4,7 @@ import 'package:bbox/model/demande.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../controller/demande_controller.dart';
-import 'conversation.dart';
 import 'widget/formText.dart';
 
 class ReponseDemande extends StatefulWidget {
@@ -109,7 +107,6 @@ class _ReponseDemandeState extends State<ReponseDemande> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -292,7 +289,11 @@ class _ReponseDemandeState extends State<ReponseDemande> {
                           e.valide
                               ? Column(
                                   children: e.reponse
-                                      .map((e) => viewResponse(e, screenWidth))
+                                      .map((e) => GestureDetector(
+                                          onTap: () {
+                                            showmodalBottom(e.id);
+                                          },
+                                          child: viewResponse(e, screenWidth)))
                                       .toList(),
                                 )
                               : Center()

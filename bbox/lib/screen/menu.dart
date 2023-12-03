@@ -61,7 +61,17 @@ class _MenuScreenState extends State<MenuScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: screenHeight * 0.1,
+                height: screenHeight * 0.05,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        delete();
+                      },
+                      icon: const Icon(Icons.logout_outlined))
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
@@ -74,7 +84,7 @@ class _MenuScreenState extends State<MenuScreen> {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: Text(
-                  'Choisiz une operation',
+                  'Choisissez une operation',
                   style: GoogleFonts.raleway(fontSize: 15),
                 ),
               ),
@@ -128,18 +138,8 @@ class _MenuScreenState extends State<MenuScreen> {
                     img: 'assets/boite-de-discussion.png',
                     text: 'Espace chat'),
               ),
-              GestureDetector(
-                onTap: () {
-                  delete;
-                },
-                child: MenuWidget(
-                    screenHeight: screenHeight,
-                    screenWidth: screenWidth,
-                    img: 'assets/power.png',
-                    text: 'Deconnexion'),
-              ),
               SizedBox(
-                height: screenHeight * 0.24,
+                height: screenHeight * 0.32,
               ),
               Center(
                 child: Text(

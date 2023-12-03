@@ -91,44 +91,74 @@ class Coordonnes {
 }
 
 class ReponseId {
-  final String id;
-  final String codeClient;
-  final String codeCu;
-  final String clientStatut;
-  final String payementStatut;
-  final int consExpDays;
-  final String idDemande;
-  final String text;
-  final String createdAt;
-  final String updatedAt;
-  final int v;
-  final String nomClient;
+    String id;
+    String codeClient;
+    String codeCu;
+    String clientStatut;
+    String payementStatut;
+    int consExpDays;
+    String idDemande;
+    DateTime dateSave;
+    String codeAgent;
+    String nomClient;
+    String region;
+    String shop;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int v;
 
-  ReponseId({
-    required this.id,
-    required this.codeClient,
-    required this.codeCu,
-    required this.clientStatut,
-    required this.payementStatut,
-    required this.consExpDays,
-    required this.idDemande,
-    required this.text,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.v,
-    required this.nomClient,
-  });
-  factory ReponseId.fromJson(Map<String, dynamic> json) => ReponseId(
-      id: json["_id"],
-      codeClient: json["codeClient"],
-      codeCu: json["codeCu"],
-      clientStatut: json["clientStatut"],
-      payementStatut: json["PayementStatut"],
-      consExpDays: json["consExpDays"],
-      idDemande: json["idDemande"],
-      text: json["text"],
-      createdAt: json["createdAt"],
-      updatedAt: json["updatedAt"],
-      v: json["__v"],
-      nomClient: json["nomClient"]);
+    ReponseId({
+        required this.id,
+        required this.codeClient,
+        required this.codeCu,
+        required this.clientStatut,
+        required this.payementStatut,
+        required this.consExpDays,
+        required this.idDemande,
+        required this.dateSave,
+        required this.codeAgent,
+        required this.nomClient,
+        required this.region,
+        required this.shop,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.v,
+    });
+
+    factory ReponseId.fromJson(Map<String, dynamic> json) => ReponseId(
+        id: json["_id"],
+        codeClient: json["codeClient"],
+        codeCu: json["codeCu"],
+        clientStatut: json["clientStatut"],
+        payementStatut: json["PayementStatut"],
+        consExpDays: json["consExpDays"],
+        idDemande: json["idDemande"],
+        dateSave: DateTime.parse(json["dateSave"]),
+        codeAgent: json["codeAgent"],
+        nomClient: json["nomClient"],
+        region: json["region"],
+        shop: json["shop"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        v: json["__v"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "_id": id,
+        "codeClient": codeClient,
+        "codeCu": codeCu,
+        "clientStatut": clientStatut,
+        "PayementStatut": payementStatut,
+        "consExpDays": consExpDays,
+        "idDemande": idDemande,
+        "dateSave": dateSave.toIso8601String(),
+        "codeAgent": codeAgent,
+        "nomClient": nomClient,
+        "region": region,
+        "shop": shop,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "__v": v,
+    };
 }
+

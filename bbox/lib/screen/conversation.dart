@@ -45,7 +45,6 @@ class _ConversationUiState extends State<ConversationUi> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -184,7 +183,7 @@ Widget bas(ReponseId demande, double width) {
   return Container(
     alignment: Alignment.centerLeft,
     width: width * 0.65,
-    decoration: BoxDecoration(color: Colors.red.shade100),
+    decoration: BoxDecoration(color: Colors.grey.shade100),
     child: Padding(
       padding: const EdgeInsets.all(10),
       child: Text(
