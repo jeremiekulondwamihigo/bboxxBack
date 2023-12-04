@@ -352,7 +352,7 @@ Widget viewResponse(Reponse reponse, double screenWidth) {
                                 style: GoogleFonts.raleway(fontSize: 15),
                               ),
                               Text(
-                                "${reponse.idDemande}; ${reponse.codeClient}; \nAccount statut: ${reponse.clientStatut}; \nTime to expired: ${reponse.consExpDays};",
+                                "${reponse.idDemande}; ${reponse.codeClient}; \nAccount statut: ${reponse.clientStatut}; \nTime to expired: ${reponse.consExpDays} jour(s);",
                                 style: GoogleFonts.raleway(
                                     fontSize: 15, color: Colors.white),
                               ),

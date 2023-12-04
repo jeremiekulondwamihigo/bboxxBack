@@ -49,6 +49,12 @@ class DemandeId {
   final String codeAgent;
   final String lot;
   DateTime createdAt;
+  final String statut;
+  final String file;
+  final String province;
+  final String country;
+  final String sector;
+  final String cell;
 
   DemandeId({
     required this.id,
@@ -57,6 +63,12 @@ class DemandeId {
     required this.codeAgent,
     required this.lot,
     required this.createdAt,
+    required this.statut,
+    required this.file,
+    required this.province,
+    required this.country,
+    required this.sector,
+    required this.cell,
   });
 
   factory DemandeId.fromJson(Map<String, dynamic> json) => DemandeId(
@@ -65,6 +77,12 @@ class DemandeId {
         idDemande: json["idDemande"],
         codeAgent: json["codeAgent"],
         lot: json["lot"],
+        statut: json["statut"],
+        file: json["file"],
+        province: json["province"],
+        country: json["country"],
+        sector: json["sector"],
+        cell: json["cell"],
         createdAt: DateTime.parse(json["createdAt"]),
       );
 }
@@ -91,41 +109,41 @@ class Coordonnes {
 }
 
 class ReponseId {
-    String id;
-    String codeClient;
-    String codeCu;
-    String clientStatut;
-    String payementStatut;
-    int consExpDays;
-    String idDemande;
-    DateTime dateSave;
-    String codeAgent;
-    String nomClient;
-    String region;
-    String shop;
-    DateTime createdAt;
-    DateTime updatedAt;
-    int v;
+  String id;
+  String codeClient;
+  String codeCu;
+  String clientStatut;
+  String payementStatut;
+  int consExpDays;
+  String idDemande;
+  DateTime dateSave;
+  String codeAgent;
+  String nomClient;
+  String region;
+  String shop;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int v;
 
-    ReponseId({
-        required this.id,
-        required this.codeClient,
-        required this.codeCu,
-        required this.clientStatut,
-        required this.payementStatut,
-        required this.consExpDays,
-        required this.idDemande,
-        required this.dateSave,
-        required this.codeAgent,
-        required this.nomClient,
-        required this.region,
-        required this.shop,
-        required this.createdAt,
-        required this.updatedAt,
-        required this.v,
-    });
+  ReponseId({
+    required this.id,
+    required this.codeClient,
+    required this.codeCu,
+    required this.clientStatut,
+    required this.payementStatut,
+    required this.consExpDays,
+    required this.idDemande,
+    required this.dateSave,
+    required this.codeAgent,
+    required this.nomClient,
+    required this.region,
+    required this.shop,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.v,
+  });
 
-    factory ReponseId.fromJson(Map<String, dynamic> json) => ReponseId(
+  factory ReponseId.fromJson(Map<String, dynamic> json) => ReponseId(
         id: json["_id"],
         codeClient: json["codeClient"],
         codeCu: json["codeCu"],
@@ -141,9 +159,9 @@ class ReponseId {
         createdAt: DateTime.parse(json["createdAt"]),
         updatedAt: DateTime.parse(json["updatedAt"]),
         v: json["__v"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "codeClient": codeClient,
         "codeCu": codeCu,
@@ -159,6 +177,5 @@ class ReponseId {
         "createdAt": createdAt.toIso8601String(),
         "updatedAt": updatedAt.toIso8601String(),
         "__v": v,
-    };
+      };
 }
-

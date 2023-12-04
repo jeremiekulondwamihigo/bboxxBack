@@ -32,18 +32,24 @@ class _MesLotDemandeState extends State<MesLotDemande> {
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-            onPressed: () => Navigator.of(context).pop(),
-            icon: Icon(
-              Icons.arrow_circle_left_rounded,
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            icon: const Icon(
+              Icons.arrow_circle_left_outlined,
               color: Colors.blue,
             )),
+        title: Text(
+          'Les paquets',
+          style: GoogleFonts.raleway(fontSize: 15, color: Colors.blue),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -53,21 +59,10 @@ class _MesLotDemandeState extends State<MesLotDemande> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: screenHeight * 0.02,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Text(
-                  "Les Periodes",
-                  style: GoogleFonts.raleway(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
                 height: screenHeight * 0.01,
               ),
               Wrap(
-                spacing: 10,
+                spacing: screenWidth * 0.02,
                 children: periodes
                     .map((e) => GestureDetector(
                           onTap: () => Navigator.push(

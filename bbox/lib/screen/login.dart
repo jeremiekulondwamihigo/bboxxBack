@@ -42,6 +42,13 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) =>
                 MenuScreen(img: widget.img, server: widget.server),
           ));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(
+        'Veuillez renseigner les champs',
+        style: GoogleFonts.raleway(color: Colors.red),
+      )));
     }
   }
 

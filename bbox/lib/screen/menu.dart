@@ -28,17 +28,20 @@ class _MenuScreenState extends State<MenuScreen> {
     user = pref.getString('username');
   }
 
-  Future<void> delete() async {
+  delete() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     pref.remove('username');
     pref.remove('identite');
     pref.remove('zone');
-    MaterialPageRoute(
-      builder: (context) => LoginPage(
-        img: widget.img,
-        server: widget.server,
-      ),
-    );
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(
+            img: widget.img,
+            server: widget.server,
+          ),
+        ));
   }
 
   @override
@@ -67,9 +70,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   IconButton(
-                      onPressed: () {
-                        delete();
-                      },
+                      onPressed: () => delete(),
                       icon: const Icon(Icons.logout_outlined))
                 ],
               ),

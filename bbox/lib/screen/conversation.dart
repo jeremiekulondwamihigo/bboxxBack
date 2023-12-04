@@ -98,17 +98,33 @@ class _ConversationUiState extends State<ConversationUi> {
                                     Container(
                                       alignment: Alignment.centerLeft,
                                       width: screenWidth * 0.65,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.only(
+                                      decoration: const BoxDecoration(
+                                          borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(10),
                                             bottomRight: Radius.circular(10),
                                           ),
-                                          color: Colors.blue.shade200),
+                                          color: Color.fromARGB(
+                                              255, 52, 130, 194)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          "${e.message}\n${e.createdAt}",
-                                          style: GoogleFonts.raleway(),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${e.message}",
+                                              style: GoogleFonts.raleway(
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              "${e.createdAt}",
+                                              style: GoogleFonts.raleway(
+                                                  color: Colors.white,
+                                                  fontSize: 10),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -142,12 +158,28 @@ class _ConversationUiState extends State<ConversationUi> {
                                             bottomLeft: Radius.circular(10),
                                             bottomRight: Radius.circular(10),
                                           ),
-                                          color: Colors.blue),
+                                          color:
+                                              Color.fromARGB(255, 13, 59, 96)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          "${e.message}\n${e.createdAt}",
-                                          style: GoogleFonts.raleway(),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "${e.message}",
+                                              style: GoogleFonts.raleway(
+                                                  color: Colors.white),
+                                            ),
+                                            Text(
+                                              "${e.createdAt}",
+                                              style: GoogleFonts.raleway(
+                                                  color: Colors.white,
+                                                  fontSize: 10),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -171,9 +203,19 @@ Widget haut(DemandeId demande, double width) {
     decoration: BoxDecoration(color: Colors.grey.shade100),
     child: Padding(
       padding: const EdgeInsets.all(10),
-      child: Text(
-        "${demande.idDemande}, ${demande.lot} \n${demande.createdAt}",
-        style: GoogleFonts.raleway(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "${demande.idDemande}, ${demande.province} ${demande.country} ${demande.sector}; ${demande.statut}",
+            style: GoogleFonts.raleway(),
+          ),
+          Text(
+            "${demande.createdAt}",
+            style: GoogleFonts.raleway(fontSize: 9),
+          ),
+        ],
       ),
     ),
   );
