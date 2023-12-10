@@ -121,10 +121,12 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
       codeclient.clear();
       reference.clear();
       sat.clear();
-      lat = '';
-      long = '';
+      setState(() {
+        lat = 'Latitude';
+        long = 'Longetude';
+      });
       quartier.clear();
-      valeurEtatBatterie = '';
+      valeurEtatBatterie;
       ville.clear();
       province.clear();
       commune.clear();
@@ -336,12 +338,15 @@ class _EnvoiDemandeState extends State<EnvoiDemande> {
                 ),
                 TextFieldForm(text: 'feedback', controller: raison),
                 _image != null
-                    ? Image.file(
-                        _image!,
-                        width: screenWidth,
-                        height: screenHeight * 0.3,
-                        fit: BoxFit.cover,
-                      )
+                    ? Padding(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      child: Image.file(
+                          _image!,
+                          width: screenWidth,
+                          height: screenHeight * 0.3,
+                          fit: BoxFit.cover,
+                        ),
+                    )
                     : Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
